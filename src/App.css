@@ -1,0 +1,96 @@
+body {
+  background-color: whitesmoke;
+  background-image: url("https://www.transparenttextures.com/patterns/lyonnette.png");
+  border-bottom: 0 solid black;
+  height: 28.125rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* === Wrapper Styles === */
+#FileUpload {
+  display: flex;
+  justify-content: center;
+}
+.wrapper {
+  width: 25rem;
+  padding: 0.625rem;
+  box-shadow:
+    0 1.1875rem 2.375rem rgba(0, 0, 0, 0.3),
+    0 0.9375rem 0.75rem rgba(0, 0, 0, 0.22);
+  border-radius: 0.625rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* === Upload Box === */
+.upload {
+  height: 5.3125rem;
+  border: 0.5rem dashed #e6f5e9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.3125rem;
+}
+.upload p {
+  margin-top: 0.75rem;
+  line-height: 0;
+  font-size: 1.375rem;
+  color: #0c3214;
+  letter-spacing: 0.09375rem;
+}
+.upload__button {
+  background-color: #e6f5e9;
+  border-radius: 0.625rem;
+  padding: 0 0.5rem 0 0.625rem;
+}
+.upload__button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+/* === Uploaded Files === */
+.uploaded {
+  background-color: #e6f5e9;
+  border-radius: 0.625rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.625rem;
+  justify-content: space-around;
+}
+.file {
+  display: flex;
+  flex-direction: column;
+}
+.file__name {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 18.75rem;
+  /* line-height: 0; */
+  color: #0c3214;
+  font-size: 1.125rem;
+  letter-spacing: 0.09375rem;
+}
+.file__name p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 15rem; /* Adjust as needed */
+}
+.fa-times:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+.fa-file-pdf {
+  /* padding: 0.9375rem; */
+  font-size: 2.5rem;
+  color: #0c3214;
+}
