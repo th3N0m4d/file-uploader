@@ -61,6 +61,29 @@ function App() {
     setUploadedFiles((prev) => prev.filter((file) => file.id !== fileId));
   };
 
+  const getFileIcon = (fileName: string): string => {
+    const extension = fileName.split(".").pop()?.toLowerCase();
+
+    switch (extension) {
+      case "pdf":
+        return "far fa-file-pdf";
+      case "txt":
+        return "far fa-file-alt";
+      case "doc":
+      case "docx":
+        return "far fa-file-word";
+      case "jpg":
+      case "jpeg":
+      case "png":
+      case "gif":
+      case "bmp":
+      case "webp":
+        return "far fa-file-image";
+      default:
+        return "far fa-file"; // Generic file icon
+    }
+  };
+
   return (
     <div id="FileUpload">
       <div className="wrapper">
@@ -83,7 +106,7 @@ function App() {
 
         {uploadedFiles.map((file) => (
           <div key={file.id} className="uploaded">
-            <i className="far fa-file-pdf"></i>
+            <i className={getFileIcon(file.name)}></i>
             <div className="file">
               <div className="file__name">
                 <p>{file.name}</p>
