@@ -14,7 +14,6 @@ body {
   justify-content: center;
 }
 .wrapper {
-  width: 25rem;
   padding: 0.625rem;
   box-shadow:
     0 1.1875rem 2.375rem rgba(0, 0, 0, 0.3),
@@ -60,9 +59,8 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   padding: 0.625rem;
-  justify-content: space-around;
 }
 .file {
   display: flex;
@@ -74,7 +72,7 @@ body {
   justify-content: space-between;
   align-items: baseline;
   width: 18.75rem;
-  /* line-height: 0; */
+
   color: #0c3214;
   font-size: 1.125rem;
   letter-spacing: 0.09375rem;
@@ -83,14 +81,13 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 15rem; /* Adjust as needed */
+  max-width: 15rem;
 }
 .fa-times:hover {
   cursor: pointer;
   opacity: 0.8;
 }
-.fa-file-pdf {
-  /* padding: 0.9375rem; */
+.far {
   font-size: 2.5rem;
   color: #0c3214;
 }
