@@ -9,10 +9,6 @@ body {
 }
 
 /* === Wrapper Styles === */
-#FileUpload {
-  display: flex;
-  justify-content: center;
-}
 .wrapper {
   padding: 0.625rem;
   box-shadow:
