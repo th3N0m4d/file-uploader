@@ -35,12 +35,17 @@ export const FileItem = ({ file, onRemove }: Props) => {
       <div className="file">
         <div className="file__name">
           <p>{file.name}</p>
-          <i className="fas fa-times" onClick={() => onRemove(file.id)}></i>
+          <i
+            className="fas fa-times"
+            onClick={() => onRemove(file.id)}
+            role="button"
+          ></i>
         </div>
         <div className="progress">
           <div
             className="progress-bar bg-success progress-bar-striped progress-bar-animated"
             style={{ width: `${file.progress}%` }}
+            role="progressbar"
           ></div>
         </div>
       </div>
