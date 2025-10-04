@@ -32,6 +32,7 @@ export const FileUploadArea = ({
         style={{ display: "none" }}
         onChange={(e) => selectFiles(e.target.files)}
         accept={acceptedTypes}
+        role="button"
       />
     </div>
   );
