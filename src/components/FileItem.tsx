@@ -1,6 +1,6 @@
 import type { UploadedFile } from "../hooks/useFileUpload";
 
-interface FileItemProps {
+interface Props {
   file: UploadedFile;
   onRemove: (fileId: string) => void;
 }
@@ -24,11 +24,11 @@ const getFileIcon = (fileName: string): string => {
     case "webp":
       return "far fa-file-image";
     default:
-      return "far fa-file"; // Generic file icon
+      return "far fa-file";
   }
 };
 
-export const FileItem = ({ file, onRemove }: FileItemProps) => {
+export const FileItem = ({ file, onRemove }: Props) => {
   return (
     <div key={file.id} className="uploaded">
       <i className={getFileIcon(file.name)}></i>

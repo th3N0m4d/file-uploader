@@ -23,7 +23,6 @@ export const useFileUpload = () => {
 
     setUploadedFiles((prev) => [...prev, ...newFiles]);
 
-    // Simulate upload progress
     newFiles.forEach((fileData) => {
       simulateUpload(fileData.id);
     });

@@ -1,6 +1,6 @@
 import type { RefObject } from "react";
 
-interface FileUploadAreaProps {
+interface Props {
   onDrop: (e: React.DragEvent) => void;
   onDragOver: (e: React.DragEvent) => void;
   browseFiles: () => void;
@@ -16,7 +16,7 @@ export const FileUploadArea = ({
   selectFiles,
   fileInputRef,
   acceptedTypes = ".pdf,.doc,.docx,.txt,.jpg,.png",
-}: FileUploadAreaProps) => {
+}: Props) => {
   return (
     <div className="upload" onDrop={onDrop} onDragOver={onDragOver}>
       <p>

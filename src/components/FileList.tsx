@@ -1,12 +1,12 @@
 import type { UploadedFile } from "../hooks/useFileUpload";
 import { FileItem } from "./FileItem";
 
-interface FileListProps {
+interface Props {
   files: UploadedFile[];
   onRemoveFile: (fileId: string) => void;
 }
 
-export const FileList = ({ files, onRemoveFile }: FileListProps) => {
+export const FileList = ({ files, onRemoveFile }: Props) => {
   if (files.length === 0) {
     return null;
   }
