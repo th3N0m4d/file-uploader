@@ -2,6 +2,8 @@ import "./App.css";
 import { useFileUpload } from "./hooks/useFileUpload";
 import { FileUploadArea, FileList } from "./components";
 
+const BASE_API_URL = import.meta.env.VITE_UPLOAD_ENDPOINT;
+
 function App() {
   const {
     uploadedFiles,
@@ -11,7 +13,7 @@ function App() {
     onDrop,
     onDragOver,
     removeFile,
-  } = useFileUpload();
+  } = useFileUpload({ endpoint: BASE_API_URL, timeout: 6000 });
 
   return (
     <div className="wrapper">
