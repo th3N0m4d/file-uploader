@@ -12,6 +12,7 @@ describe("FileList", () => {
       file: new File(["content1"], "document1.pdf", {
         type: "application/pdf",
       }),
+      status: "uploading" as const,
     },
     {
       id: "file-2",
@@ -20,12 +21,14 @@ describe("FileList", () => {
       file: new File(["content2"], "document2.docx", {
         type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       }),
+      status: "completed" as const,
     },
     {
       id: "file-3",
       name: "image.jpg",
       progress: 25,
       file: new File(["content3"], "image.jpg", { type: "image/jpeg" }),
+      status: "uploading" as const,
     },
   ];
 

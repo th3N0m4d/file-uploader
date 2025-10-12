@@ -11,6 +11,7 @@ describe("FileItem", () => {
     file: new File(["content"], "test-document.pdf", {
       type: "application/pdf",
     }),
+    status: "uploading" as const,
   };
 
   const defaultProps = {

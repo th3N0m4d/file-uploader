@@ -49,6 +49,7 @@ describe("App", () => {
           name: "test.pdf",
           progress: 50,
           file: new File(["content"], "test.pdf", { type: "application/pdf" }),
+          status: "uploading" as const,
         },
       ],
       fileInputRef: { current: null },
