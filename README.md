@@ -22,6 +22,10 @@ A React-based file uploader component with drag-and-drop functionality, progress
 - ✅ File removal functionality
 - ✅ File type restrictions
 
+## Credits
+
+UI/UX design inspired by [Matty1515's CodePen](https://codepen.io/Matty1515/pen/OYJeoV) - adapted and enhanced for React with TypeScript.
+
 ## Architecture
 
 ![Component Architecture](./docs/diagrams/Serverless%20File%20Uploader.drawio.png)
