@@ -292,6 +292,76 @@ export const useFileUpload = (config?: {
     }
   };
 
+  const deleteFile = async (fileId: string) => {
+    // Update file status to show it's being deleted
+    setUploadedFiles((prev) =>
+      prev.map((file) =>
+        file.id === fileId
+          ? { ...file, status: "uploading" as const } // Reuse uploading status to show activity
+          : file
+      )
+    );
+
+    try {
+      // Handle both relative and absolute URLs for DELETE
+      let deleteUrl: string;
+
+      if (endpoint.startsWith("http://") || endpoint.startsWith("https://")) {
+        // Absolute URL - use URL constructor
+        const url = new URL(`${endpoint}/${fileId}`);
+        url.searchParams.append("userId", userId);
+        deleteUrl = url.toString();
+      } else {
+        // Relative URL - construct manually
+        deleteUrl = `${endpoint}/${fileId}?userId=${encodeURIComponent(userId)}`;
+      }
+
+      const response = await fetch(deleteUrl, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to delete file: ${response.statusText} (${response.status})`
+        );
+      }
+
+      console.log("File deleted successfully:", fileId);
+
+      // Remove file from local state
+      setUploadedFiles((prev) => prev.filter((file) => file.id !== fileId));
+    } catch (error) {
+      console.error("Error deleting file:", error);
+
+      // Revert status back to completed on error
+      setUploadedFiles((prev) =>
+        prev.map((file) =>
+          file.id === fileId
+            ? {
+                ...file,
+                status: "error" as const,
+                errorMessage:
+                  error instanceof Error
+                    ? error.message
+                    : "Failed to delete file",
+              }
+            : file
+        )
+      );
+
+      // Show error (you might want to add a toast notification here)
+      setFetchError(
+        error instanceof Error ? error.message : "Failed to delete file"
+      );
+
+      // Clear error after 5 seconds
+      setTimeout(() => setFetchError(null), 5000);
+    }
+  };
+
   return {
     uploadedFiles,
     isLoading,
@@ -303,5 +373,6 @@ export const useFileUpload = (config?: {
     onDragOver,
     removeFile,
     fetchFiles,
+    deleteFile,
   };
 };
