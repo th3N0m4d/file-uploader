@@ -1,0 +1,140 @@
+/* File Manager Styles */
+.card-box {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.gap-3 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.header-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #343a40;
+}
+
+.m-b-30 {
+  margin-bottom: 30px;
+}
+
+.file-man-box {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  padding: 15px;
+  position: relative;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.file-man-box:hover {
+  background: #f1f3f4;
+  border-color: #dee2e6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.file-close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: #dc3545;
+  font-size: 14px;
+  text-decoration: none;
+  z-index: 10;
+}
+
+.file-close:hover {
+  color: #c82333;
+}
+
+.file-img-box {
+  margin: 10px 0;
+}
+
+.file-img-box img {
+  height: 48px;
+  width: 48px;
+}
+
+.file-download {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  color: #28a745;
+  font-size: 14px;
+  text-decoration: none;
+  z-index: 10;
+}
+
+.file-download:hover {
+  color: #218838;
+}
+
+.file-man-title {
+  margin-top: 10px;
+}
+
+.file-man-title h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 5px;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-man-title p {
+  font-size: 12px;
+  color: #6c757d;
+  margin: 0;
+}
+
+.waves-effect {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  vertical-align: middle;
+  z-index: 1;
+  transition: all 0.3s ease-out;
+}
+
+.w-md {
+  min-width: 120px;
+}
+
+/* Content wrapper */
+.content {
+  height: 32rem;
+  padding: 20px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .file-man-box {
+    margin-bottom: 15px;
+  }
+
+  .content {
+    padding: 15px 0;
+  }
+
+  .card-box {
+    padding: 15px;
+  }
+}
