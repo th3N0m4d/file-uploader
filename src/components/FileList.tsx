@@ -3,10 +3,9 @@ import { FileItem } from "./FileItem";
 
 interface Props {
   files: UploadedFile[];
-  onRemoveFile: (fileId: string) => void;
 }
 
-export const FileList = ({ files, onRemoveFile }: Props) => {
+export const FileList = ({ files }: Props) => {
   if (files.length === 0) {
     return null;
   }
@@ -14,7 +13,7 @@ export const FileList = ({ files, onRemoveFile }: Props) => {
   return (
     <>
       {files.map((file) => (
-        <FileItem key={file.id} file={file} onRemove={onRemoveFile} />
+        <FileItem key={file.id} file={file} />
       ))}
     </>
   );
