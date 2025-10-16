@@ -24,7 +24,7 @@ A React-based file uploader component with drag-and-drop functionality, progress
 
 ## Credits
 
-UI/UX design inspired by [Matty1515's CodePen](https://codepen.io/Matty1515/pen/OYJeoV) - adapted and enhanced for React with TypeScript.
+UI/UX design for the file upload page was inspired by [Matty1515's CodePen](https://codepen.io/Matty1515/pen/OYJeoV) and [BootDey](https://www.bootdey.com/snippets/view/bs4-File-Manager#css) for the UI/UX design for the file view page - adapted and enhanced for React with TypeScript.
 
 ## Architecture
 
