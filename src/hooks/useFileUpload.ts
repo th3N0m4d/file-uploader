@@ -13,14 +13,18 @@ export interface UploadedFile {
 export const useFileUpload = (config?: {
   endpoint?: string;
   timeout?: number;
+  userId?: string;
 }) => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const endpoint =
     config?.endpoint ||
     import.meta.env.VITE_UPLOAD_ENDPOINT ||
     "https://hw8hqfytqi.execute-api.eu-central-1.amazonaws.com/prod/files";
   const timeout = config?.timeout || 60000;
+  const userId = config?.userId || "user123";
 
   const selectFiles = (files: FileList | null) => {
     if (!files) return;
@@ -72,7 +76,7 @@ export const useFileUpload = (config?: {
         fileContent,
         fileName: fileData.name,
         contentType: fileData.file.type || "application/octet-stream",
-        userId: "user123", // You might want to make this dynamic
+        userId: userId,
       };
 
       const xhr = new XMLHttpRequest();
@@ -222,13 +226,82 @@ export const useFileUpload = (config?: {
     setUploadedFiles((prev) => prev.filter((file) => file.id !== fileId));
   };
 
+  const fetchFiles = async () => {
+    setIsLoading(true);
+    setFetchError(null);
+
+    try {
+      // Handle both relative and absolute URLs
+      let fetchUrl: string;
+
+      if (endpoint.startsWith("http://") || endpoint.startsWith("https://")) {
+        // Absolute URL - use URL constructor
+        const url = new URL(endpoint);
+        url.searchParams.append("userId", userId);
+        fetchUrl = url.toString();
+      } else {
+        // Relative URL - construct manually
+        const separator = endpoint.includes("?") ? "&" : "?";
+        fetchUrl = `${endpoint}${separator}userId=${encodeURIComponent(userId)}`;
+      }
+
+      const response = await fetch(fetchUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch files: ${response.statusText} (${response.status})`
+        );
+      }
+
+      const data = await response.json();
+      console.log("Files fetched successfully:", data);
+
+      // Convert server response to UploadedFile format
+      const fetchedFiles: UploadedFile[] =
+        data.files?.map(
+          (file: {
+            id?: string;
+            fileName?: string;
+            name?: string;
+            url?: string;
+            downloadUrl?: string;
+            uploadUrl?: string;
+          }) => ({
+            id: file.id || Math.random().toString(36).substr(2, 9),
+            name: file.fileName || file.name || "Unknown file",
+            progress: 100, // Fetched files are already uploaded
+            file: new File([""], file.fileName || file.name || "unknown"), // Create a placeholder File object
+            status: "completed" as const,
+            uploadUrl: file.url || file.downloadUrl || file.uploadUrl,
+          })
+        ) || [];
+
+      setUploadedFiles(fetchedFiles);
+    } catch (error) {
+      console.error("Error fetching files:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to fetch files";
+      setFetchError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
     uploadedFiles,
+    isLoading,
+    fetchError,
     fileInputRef,
     selectFiles,
     browseFiles,
     onDrop,
     onDragOver,
     removeFile,
+    fetchFiles,
   };
 };

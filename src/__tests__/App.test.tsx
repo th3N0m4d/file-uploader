@@ -6,12 +6,15 @@ import { useFileUpload } from "../hooks/useFileUpload";
 vi.mock("../hooks/useFileUpload", () => ({
   useFileUpload: vi.fn(() => ({
     uploadedFiles: [],
+    isLoading: false,
+    fetchError: null,
     fileInputRef: { current: null },
     selectFiles: vi.fn(),
     browseFiles: vi.fn(),
     onDrop: vi.fn(),
     onDragOver: vi.fn(),
     removeFile: vi.fn(),
+    fetchFiles: vi.fn(),
   })),
 }));
 
@@ -52,12 +55,15 @@ describe("App", () => {
           status: "uploading" as const,
         },
       ],
+      isLoading: false,
+      fetchError: null,
       fileInputRef: { current: null },
       selectFiles: vi.fn(),
       browseFiles: vi.fn(),
       onDrop: vi.fn(),
       onDragOver: vi.fn(),
       removeFile: vi.fn(),
+      fetchFiles: vi.fn(),
     }));
 
     vi.mocked(useFileUpload).mockImplementation(mockUseFileUpload);
