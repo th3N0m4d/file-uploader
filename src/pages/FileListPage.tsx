@@ -43,7 +43,9 @@ export const FileListPage = () => {
               <div className="card-body gap-3">
                 <div className="row">
                   <div className="col-lg-6 col-xl-6">
-                    <h4 className="card-title m-b-30">My Files</h4>
+                    <h4 className="card-title m-b-30" role="heading">
+                      My Files
+                    </h4>
                   </div>
                 </div>
 

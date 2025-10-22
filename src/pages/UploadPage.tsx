@@ -22,7 +22,7 @@ export const UploadPage = () => {
       <div className="row">
         <div className="col-12">
           <div className="card">
-            <div className="card-body gap-3">
+            <div className="card-body">
               <h4 className="card-title">Upload Files</h4>
 
               <FileUploadArea

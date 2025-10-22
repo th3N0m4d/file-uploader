@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { FileList } from "../FileList";
 import type { UploadedFile } from "../../hooks/useFileUpload";
 
@@ -32,13 +32,8 @@ describe("FileList", () => {
     },
   ];
 
-  const defaultProps = {
-    files: mockFiles,
-    onRemoveFile: vi.fn(),
-  };
-
   it("should render all files when files array is not empty", () => {
-    render(<FileList {...defaultProps} />);
+    render(<FileList files={mockFiles} />);
 
     expect(screen.getByText("document1.pdf")).toBeInTheDocument();
     expect(screen.getByText("document2.docx")).toBeInTheDocument();
@@ -46,28 +41,21 @@ describe("FileList", () => {
   });
 
   it("should render nothing when files array is empty", () => {
-    const { container } = render(<FileList {...defaultProps} files={[]} />);
+    const { container } = render(<FileList files={[]} />);
 
     expect(container.firstChild).toBeNull();
   });
 
   it("should render correct number of FileItem components", () => {
-    render(<FileList {...defaultProps} />);
+    render(<FileList files={mockFiles} />);
 
-    const fileItems = screen.getAllByRole("button");
-    expect(fileItems).toHaveLength(3);
-  });
-
-  it("should pass onRemoveFile to each FileItem", () => {
-    const onRemoveFile = vi.fn();
-    render(<FileList {...defaultProps} onRemoveFile={onRemoveFile} />);
-
-    const removeButtons = screen.getAllByRole("button");
-    expect(removeButtons).toHaveLength(3);
+    // Since FileItem no longer has a button, let's check for the uploaded elements
+    const uploadedElements = document.querySelectorAll(".uploaded");
+    expect(uploadedElements).toHaveLength(3);
   });
 
   it("should render files with different progress values", () => {
-    render(<FileList {...defaultProps} />);
+    render(<FileList files={mockFiles} />);
 
     const progressBars = screen.getAllByRole("progressbar");
     expect(progressBars[0]).toHaveStyle("width: 50%");
@@ -77,7 +65,7 @@ describe("FileList", () => {
 
   it("should handle single file", () => {
     const singleFile = [mockFiles[0]];
-    render(<FileList {...defaultProps} files={singleFile} />);
+    render(<FileList files={singleFile} />);
 
     expect(screen.getByText("document1.pdf")).toBeInTheDocument();
     expect(screen.queryByText("document2.docx")).not.toBeInTheDocument();
@@ -85,7 +73,7 @@ describe("FileList", () => {
   });
 
   it("should render files with correct icons based on file type", () => {
-    render(<FileList {...defaultProps} />);
+    render(<FileList files={mockFiles} />);
 
     expect(document.querySelector(".fa-file-pdf")).toBeInTheDocument();
     expect(document.querySelector(".fa-file-word")).toBeInTheDocument();

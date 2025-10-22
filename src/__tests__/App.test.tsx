@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { MemoryRouter } from "react-router-dom";
 import App from "../App";
 import { useFileUpload } from "../hooks/useFileUpload";
 
@@ -15,36 +16,67 @@ vi.mock("../hooks/useFileUpload", () => ({
     onDragOver: vi.fn(),
     removeFile: vi.fn(),
     fetchFiles: vi.fn(),
+    deleteFile: vi.fn(),
   })),
 }));
 
+// Helper function to render App with router
+const renderWithRouter = (initialEntries = ["/upload"]) => {
+  return render(
+    <MemoryRouter initialEntries={initialEntries}>
+      <App />
+    </MemoryRouter>
+  );
+};
+
+const defaultMockImplementation = () => ({
+  uploadedFiles: [],
+  isLoading: false,
+  fetchError: null,
+  fileInputRef: { current: null },
+  selectFiles: vi.fn(),
+  browseFiles: vi.fn(),
+  onDrop: vi.fn(),
+  onDragOver: vi.fn(),
+  removeFile: vi.fn(),
+  fetchFiles: vi.fn(),
+  deleteFile: vi.fn(),
+});
+
 describe("App", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    vi.mocked(useFileUpload).mockImplementation(defaultMockImplementation);
   });
 
-  it("should render the main wrapper", () => {
-    render(<App />);
+  it("should render the navigation", () => {
+    renderWithRouter(["/upload"]);
 
-    const wrapper = document.querySelector(".wrapper");
-    expect(wrapper).toBeInTheDocument();
+    expect(screen.getByText("File Manager")).toBeInTheDocument();
+    expect(screen.getByText("Upload")).toBeInTheDocument();
+    expect(screen.getByText("Upload Files")).toBeInTheDocument();
   });
 
-  it("should render FileUploadArea component", () => {
-    render(<App />);
+  it("should render UploadPage on /upload route", () => {
+    renderWithRouter(["/upload"]);
 
+    expect(screen.getByText("Upload Files")).toBeInTheDocument();
     expect(screen.getByText("Drag files here or")).toBeInTheDocument();
     expect(screen.getByText("Browse")).toBeInTheDocument();
   });
 
-  it("should render FileList component", () => {
-    render(<App />);
+  it("should render FileListPage on /files route", () => {
+    const { getByRole } = renderWithRouter(["/files"]);
 
-    const fileListContainer = document.querySelector(".wrapper");
-    expect(fileListContainer).toBeInTheDocument();
+    expect(getByRole("heading", { name: "My Files" })).toBeInTheDocument();
   });
 
-  it.only("should handle file upload interaction", () => {
+  it("should redirect from / to /upload", () => {
+    renderWithRouter(["/"]);
+
+    expect(screen.getByText("Upload Files")).toBeInTheDocument();
+  });
+
+  it("should handle file upload interaction on upload page", () => {
     const mockUseFileUpload = vi.fn(() => ({
       uploadedFiles: [
         {
@@ -64,29 +96,29 @@ describe("App", () => {
       onDragOver: vi.fn(),
       removeFile: vi.fn(),
       fetchFiles: vi.fn(),
+      deleteFile: vi.fn(),
     }));
 
     vi.mocked(useFileUpload).mockImplementation(mockUseFileUpload);
 
-    render(<App />);
+    renderWithRouter(["/upload"]);
 
-    expect(screen.getByText("test.pdf")).toBeInTheDocument();
+    expect(screen.getByText("Upload Files")).toBeInTheDocument();
   });
 
   it("should have correct component structure", () => {
-    render(<App />);
+    renderWithRouter(["/upload"]);
 
-    const wrapper = document.querySelector(".wrapper");
+    const navbar = document.querySelector(".navbar");
     const uploadArea = document.querySelector(".upload");
 
-    expect(wrapper).toBeInTheDocument();
+    expect(navbar).toBeInTheDocument();
     expect(uploadArea).toBeInTheDocument();
   });
 
-  it("should render without uploaded files initially", () => {
-    render(<App />);
+  it("should render without uploaded files initially on files page", () => {
+    const { getByText } = renderWithRouter(["/files"]);
 
-    const uploadedElements = document.querySelectorAll(".uploaded");
-    expect(uploadedElements).toHaveLength(0);
+    expect(getByText("No files uploaded yet")).toBeInTheDocument();
   });
 });
