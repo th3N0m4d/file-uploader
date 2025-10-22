@@ -1,11 +1,6 @@
 import "./App.css";
 import "./filemanager.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "./components";
 import { UploadPage, FileListPage } from "./pages";
 

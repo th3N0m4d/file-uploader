@@ -15,7 +15,7 @@ export const FileListPage = () => {
   // Fetch existing files when component mounts
   useEffect(() => {
     fetchFiles();
-  }, []);
+  }, [fetchFiles]);
 
   const handleDownload = (file: any) => {
     const url = file.uploadUrl || file.url;
