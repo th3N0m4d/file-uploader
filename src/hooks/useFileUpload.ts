@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 
 export interface UploadedFile {
   id: string;
@@ -226,7 +226,7 @@ export const useFileUpload = (config?: {
     setUploadedFiles((prev) => prev.filter((file) => file.id !== fileId));
   };
 
-  const fetchFiles = async () => {
+  const fetchFiles = useCallback(async () => {
     setIsLoading(true);
     setFetchError(null);
 
@@ -290,7 +290,7 @@ export const useFileUpload = (config?: {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [endpoint, userId]);
 
   const deleteFile = async (fileId: string) => {
     // Update file status to show it's being deleted
