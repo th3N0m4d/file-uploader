@@ -1,3 +1,8 @@
+.file-list {
+  height: 40rem;
+  overflow: auto;
+}
+
 /* File Manager Styles */
 .card-box {
   background: #fff;

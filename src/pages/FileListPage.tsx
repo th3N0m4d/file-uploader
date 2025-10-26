@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useFileUpload } from "../hooks/useFileUpload";
 import { formatFileSize, getFileIcon } from "../helpers";
+import "./FileListPage.css";
 
 const BASE_API_URL = import.meta.env.VITE_UPLOAD_ENDPOINT;
 
@@ -27,11 +28,6 @@ export const FileListPage = () => {
       link.click();
       document.body.removeChild(link);
     }
-  };
-
-  const handleLoadMoreFiles = () => {
-    // Placeholder for load more functionality
-    console.log("Load more files clicked");
   };
 
   return (
@@ -67,7 +63,7 @@ export const FileListPage = () => {
                   </div>
                 ) : (
                   <>
-                    <div className="row">
+                    <div className="row file-list">
                       {uploadedFiles.map((file) => (
                         <div key={file.id} className="col-lg-3 col-xl-2">
                           <div className="file-man-box">
@@ -109,18 +105,6 @@ export const FileListPage = () => {
                         </div>
                       ))}
                     </div>
-
-                    {uploadedFiles.length >= 6 && (
-                      <div className="text-center mt-3">
-                        <button
-                          type="button"
-                          className="btn btn-outline-danger w-md waves-effect waves-light"
-                          onClick={handleLoadMoreFiles}
-                        >
-                          <i className="mdi mdi-refresh"></i> Load More Files
-                        </button>
-                      </div>
-                    )}
                   </>
                 )}
               </div>
