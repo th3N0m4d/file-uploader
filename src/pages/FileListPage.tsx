@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useFileUpload } from "../hooks/useFileUpload";
+import { useFileUpload, type UploadedFile } from "../hooks/useFileUpload";
 import { formatFileSize, getFileIcon } from "../helpers";
 import "./FileListPage.css";
 
@@ -18,8 +18,8 @@ export const FileListPage = () => {
     fetchFiles();
   }, [fetchFiles]);
 
-  const handleDownload = (file: any) => {
-    const url = file.uploadUrl || file.url;
+  const handleDownload = (file: UploadedFile) => {
+    const url = file.uploadUrl;
     if (url) {
       const link = document.createElement("a");
       link.href = url;
